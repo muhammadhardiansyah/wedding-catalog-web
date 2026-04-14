@@ -5,24 +5,7 @@ import Link from 'next/link';
 import api from '@/lib/api';
 import { Category } from '@/types';
 import { useWindowSize } from '@/hooks/useWindowSize';
-
-const categoryColors = [
-    { bg: 'rgba(201,149,108,0.1)', border: 'rgba(201,149,108,0.3)', accent: '#C9956C' },
-    { bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.3)', accent: '#a78bfa' },
-    { bg: 'rgba(244,114,182,0.1)', border: 'rgba(244,114,182,0.3)', accent: '#f472b6' },
-    { bg: 'rgba(52,211,153,0.1)', border: 'rgba(52,211,153,0.3)', accent: '#34d399' },
-    { bg: 'rgba(251,191,36,0.1)', border: 'rgba(251,191,36,0.3)', accent: '#fbbf24' },
-    { bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.3)', accent: '#60a5fa' },
-];
-
-const categoryIcons: Record<string, string> = {
-    rustic: '🌿',
-    modern: '◈',
-    islami: '☪',
-    floral: '❋',
-    minimalist: '○',
-    elegant: '✦',
-};
+import { categoryColors, categoryIcons } from '@/lib/constants';
 
 export default function KategoriPage() {
     const { isMobile, isTablet } = useWindowSize();
@@ -45,7 +28,7 @@ export default function KategoriPage() {
     return (
         <div
             onMouseMove={e => setMousePos({ x: e.clientX, y: e.clientY })}
-            style={{ background: '#0a0604', minHeight: '100vh' }}
+            style={{ background: 'var(--background)', minHeight: '100vh' }}
         >
 
             {/* CURSOR GLOW */}
@@ -100,7 +83,7 @@ export default function KategoriPage() {
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <div style={{
                         fontFamily: 'DM Sans, sans-serif', fontSize: '11px',
-                        letterSpacing: '5px', color: '#C9956C',
+                        letterSpacing: '5px', color: 'var(--accent-light)',
                         textTransform: 'uppercase', marginBottom: '1rem',
                         animation: 'fadeUp 0.6s ease both',
                     }}>✦ Jelajahi Tema</div>
@@ -108,24 +91,24 @@ export default function KategoriPage() {
                     <h1 style={{
                         fontFamily: 'Cormorant Garamond, serif',
                         fontSize: 'clamp(36px, 7vw, 64px)',
-                        color: '#FDFAF7', fontWeight: 300,
+                        color: 'var(--foreground)', fontWeight: 300,
                         lineHeight: 1.1, marginBottom: '1rem',
                         animation: 'fadeUp 0.6s ease 0.1s both',
                     }}>
-                        Temukan <em style={{ color: '#C9956C' }}>Kategori</em><br />
+                        Temukan <em style={{ color: 'var(--accent-light)' }}>Kategori</em><br />
                         yang Cocok Untukmu
                     </h1>
 
                     <div style={{
                         width: '60px', height: '1px',
-                        background: '#C9956C',
+                        background: 'var(--accent-light)',
                         margin: '0 auto 1.5rem',
                         animation: 'fadeUp 0.6s ease 0.2s both',
                     }} />
 
                     <p style={{
                         fontFamily: 'DM Sans, sans-serif',
-                        fontSize: '15px', color: 'rgba(253,250,247,0.45)',
+                        fontSize: '15px', color: 'var(--text-muted-light)',
                         lineHeight: 1.8, fontWeight: 300,
                         maxWidth: '480px', margin: '0 auto',
                         animation: 'fadeUp 0.6s ease 0.3s both',
@@ -153,9 +136,9 @@ export default function KategoriPage() {
                         {[1, 2, 3, 4, 5, 6].map(i => (
                             <div key={i} className="skeleton" style={{
                                 height: '220px',
-                                background: 'rgba(255,255,255,0.04)',
+                                background: 'var(--bg-overlay-medium)',
                                 borderRadius: '20px',
-                                border: '1px solid rgba(255,255,255,0.06)',
+                                border: '1px solid var(--border-light)',
                             }} />
                         ))}
                     </div>
@@ -180,8 +163,8 @@ export default function KategoriPage() {
                                             onMouseEnter={() => setHoveredId(cat.id)}
                                             onMouseLeave={() => setHoveredId(null)}
                                             style={{
-                                                background: isHovered ? color.bg : 'rgba(255,255,255,0.02)',
-                                                border: `1px solid ${isHovered ? color.border : 'rgba(255,255,255,0.06)'}`,
+                                                background: isHovered ? color.bg : 'var(--bg-overlay-light)',
+                                                border: `1px solid ${isHovered ? color.border : 'var(--border-light)'}`,
                                                 borderRadius: '20px', padding: '2rem',
                                                 transition: 'all 0.3s',
                                                 transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
@@ -228,7 +211,7 @@ export default function KategoriPage() {
 
                                                 <div style={{
                                                     fontFamily: 'Cormorant Garamond, serif',
-                                                    fontSize: '24px', color: '#FDFAF7',
+                                                    fontSize: '24px', color: 'var(--foreground)',
                                                     fontWeight: 400,
                                                 }}>{cat.name}</div>
                                             </div>
@@ -240,14 +223,14 @@ export default function KategoriPage() {
                                             }}>
                                                 <div style={{
                                                     fontFamily: 'DM Sans, sans-serif',
-                                                    fontSize: '13px', color: 'rgba(253,250,247,0.4)',
+                                                    fontSize: '13px', color: 'var(--text-muted)',
                                                 }}>
                                                     {cat.designs_count || 0} desain tersedia
                                                 </div>
                                                 <div style={{
                                                     width: '32px', height: '32px',
-                                                    background: isHovered ? color.bg : 'rgba(255,255,255,0.04)',
-                                                    border: `1px solid ${isHovered ? color.border : 'rgba(255,255,255,0.08)'}`,
+                                                    background: isHovered ? color.bg : 'var(--bg-overlay-medium)',
+                                                    border: `1px solid ${isHovered ? color.border : 'var(--border-medium)'}`,
                                                     borderRadius: '50%',
                                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                     color: isHovered ? color.accent : 'rgba(253,250,247,0.3)',

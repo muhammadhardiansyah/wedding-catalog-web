@@ -95,7 +95,7 @@ function KatalogContent() {
     // ... sisa kode return tetap sama persis seperti sebelumnya
 
     return (
-        <div style={{ background: '#0a0604', minHeight: '100vh' }}>
+        <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
 
             <style>{`
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
@@ -107,7 +107,7 @@ function KatalogContent() {
             {/* HEADER */}
             <div style={{
                 padding: '4rem 2rem 2rem',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                borderBottom: '1px solid var(--border-light)',
                 position: 'relative', overflow: 'hidden',
             }}>
                 <div style={{
@@ -118,21 +118,21 @@ function KatalogContent() {
                 <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
                     <div style={{
                         fontFamily: 'DM Sans, sans-serif', fontSize: '11px',
-                        letterSpacing: '4px', color: '#C9956C',
+                        letterSpacing: '4px', color: 'var(--accent-light)',
                         textTransform: 'uppercase', marginBottom: '8px',
                     }}>✦ Koleksi Lengkap</div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
                         <h1 style={{
                             fontFamily: 'Cormorant Garamond, serif',
                             fontSize: 'clamp(32px, 6vw, 52px)',
-                            color: '#FDFAF7', fontWeight: 300,
+                            color: 'var(--foreground)', fontWeight: 300,
                             lineHeight: 1.1,
                         }}>
-                            Katalog <em style={{ color: '#C9956C' }}>Undangan</em>
+                            Katalog <em style={{ color: 'var(--accent-light)' }}>Undangan</em>
                         </h1>
                         <div style={{
                             fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
-                            color: 'rgba(253,250,247,0.4)',
+                            color: 'var(--text-muted)',
                         }}>
                             {loading ? '...' : `${total} desain tersedia`}
                         </div>
@@ -153,7 +153,7 @@ function KatalogContent() {
                         <span style={{
                             position: 'absolute', left: '16px', top: '50%',
                             transform: 'translateY(-50%)',
-                            color: 'rgba(253,250,247,0.3)', fontSize: '14px',
+                            color: 'var(--text-muted-lighter)', fontSize: '14px',
                         }}>⌕</span>
                         <input
                             value={search}
@@ -162,9 +162,9 @@ function KatalogContent() {
                             style={{
                                 width: '100%', padding: '13px 16px 13px 40px',
                                 borderRadius: '100px',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                                background: 'rgba(255,255,255,0.04)',
-                                color: '#FDFAF7', fontSize: '14px',
+                                border: '1px solid var(--border-medium)',
+                                background: 'var(--bg-overlay-medium)',
+                                color: 'var(--foreground)', fontSize: '14px',
                                 fontFamily: 'DM Sans, sans-serif', outline: 'none',
                             }}
                         />
@@ -174,17 +174,17 @@ function KatalogContent() {
                         onChange={e => { setPriceFilter(e.target.value); setPage(1); }}
                         style={{
                             padding: '13px 20px', borderRadius: '100px',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            background: 'rgba(255,255,255,0.04)',
-                            color: priceFilter ? '#FDFAF7' : 'rgba(253,250,247,0.4)',
+                            border: '1px solid var(--border-medium)',
+                            background: 'var(--bg-overlay-medium)',
+                            color: priceFilter ? 'var(--foreground)' : 'var(--text-muted)',
                             fontSize: '13px', fontFamily: 'DM Sans, sans-serif',
                             outline: 'none', cursor: 'pointer',
                             colorScheme: 'dark',
                         }}
                     >
-                        <option value="" style={{ background: '#1a0f08', color: '#FDFAF7' }}>Semua Harga</option>
-                        <option value="free" style={{ background: '#1a0f08', color: '#FDFAF7' }}>Gratis</option>
-                        <option value="premium" style={{ background: '#1a0f08', color: '#FDFAF7' }}>Premium</option>
+                        <option value="" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>Semua Harga</option>
+                        <option value="free" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>Gratis</option>
+                        <option value="premium" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>Premium</option>
                     </select>
                 </div>
 
@@ -192,9 +192,9 @@ function KatalogContent() {
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
                     {categories.map(cat => (
                         <button key={cat} onClick={() => { setActiveCategory(cat); setPage(1); }} style={{
-                            background: activeCategory === cat ? '#C9956C' : 'rgba(255,255,255,0.04)',
-                            color: activeCategory === cat ? 'white' : 'rgba(253,250,247,0.5)',
-                            border: activeCategory === cat ? '1px solid #C9956C' : '1px solid rgba(255,255,255,0.08)',
+                            background: activeCategory === cat ? 'var(--accent-light)' : 'var(--bg-overlay-medium)',
+                            color: activeCategory === cat ? 'white' : 'var(--text-muted-light)',
+                            border: activeCategory === cat ? '1px solid var(--accent-light)' : '1px solid var(--border-medium)',
                             padding: '8px 20px', borderRadius: '100px',
                             fontSize: '12px', fontFamily: 'DM Sans, sans-serif',
                             cursor: 'pointer', transition: 'all 0.2s',
@@ -209,11 +209,11 @@ function KatalogContent() {
                         <div style={{
                             width: '40px', height: '40px', borderRadius: '50%',
                             border: '2px solid rgba(201,149,108,0.2)',
-                            borderTop: '2px solid #C9956C',
+                            borderTop: '2px solid var(--accent-light)',
                             margin: '0 auto 1rem',
                             animation: 'spin 1s linear infinite',
                         }} />
-                        <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'rgba(253,250,247,0.3)' }}>
+                        <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'var(--text-muted-lighter)' }}>
                             Memuat desain...
                         </div>
                     </div>
@@ -226,10 +226,10 @@ function KatalogContent() {
                             fontFamily: 'Cormorant Garamond, serif',
                             fontSize: '48px', color: 'rgba(201,149,108,0.3)', marginBottom: '1rem',
                         }}>✦</div>
-                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '24px', color: '#FDFAF7', marginBottom: '8px' }}>
+                        <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '24px', color: 'var(--foreground)', marginBottom: '8px' }}>
                             Belum ada desain
                         </div>
-                        <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'rgba(253,250,247,0.3)' }}>
+                        <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'var(--text-muted-lighter)' }}>
                             Coba ubah filter atau kata kunci pencarian
                         </div>
                     </div>
@@ -252,11 +252,11 @@ function KatalogContent() {
                                 onMouseEnter={() => setHoveredCard(i)}
                                 onMouseLeave={() => setHoveredCard(null)}
                                 style={{
-                                    background: 'rgba(255,255,255,0.03)',
+                                    background: 'var(--bg-overlay-light)',
                                     borderRadius: '20px', overflow: 'hidden',
                                     border: hoveredCard === i
                                         ? '1px solid rgba(201,149,108,0.6)'
-                                        : '1px solid rgba(255,255,255,0.06)',
+                                        : '1px solid var(--border-light)',
                                     transition: 'all 0.3s',
                                     transform: hoveredCard === i ? 'translateY(-8px)' : 'translateY(0)',
                                     cursor: 'pointer',
@@ -267,7 +267,7 @@ function KatalogContent() {
                                 {/* Thumbnail */}
                                 <div style={{
                                     height: '200px', position: 'relative', overflow: 'hidden',
-                                    background: '#1a0f08',
+                                    background: 'var(--background-secondary)',
                                 }}>
                                     {design.thumbnail_url ? (
                                         <img
@@ -295,7 +295,7 @@ function KatalogContent() {
                                             border: '1px solid rgba(201,149,108,0.4)',
                                             borderRadius: '100px', padding: '4px 12px',
                                             fontFamily: 'DM Sans, sans-serif', fontSize: '10px',
-                                            color: '#C9956C', letterSpacing: '2px',
+                                            color: 'var(--accent-light)', letterSpacing: '2px',
                                             textTransform: 'uppercase', backdropFilter: 'blur(8px)',
                                         }}>Featured</div>
                                     )}
@@ -307,7 +307,7 @@ function KatalogContent() {
                                         border: '1px solid rgba(255,255,255,0.1)',
                                         borderRadius: '50%', display: 'flex',
                                         alignItems: 'center', justifyContent: 'center',
-                                        fontSize: '14px', color: '#C9956C',
+                                        fontSize: '14px', color: 'var(--accent-light)',
                                         backdropFilter: 'blur(8px)', cursor: 'pointer',
                                     }}>♡</div>
                                 </div>
@@ -318,11 +318,11 @@ function KatalogContent() {
                                         <div>
                                             <div style={{
                                                 fontFamily: 'Cormorant Garamond, serif',
-                                                fontSize: '18px', color: '#FDFAF7', fontWeight: 500,
+                                                fontSize: '18px', color: 'var(--foreground)', fontWeight: 500,
                                             }}>{design.title}</div>
                                             <div style={{
                                                 fontFamily: 'DM Sans, sans-serif',
-                                                fontSize: '12px', color: 'rgba(253,250,247,0.4)', marginTop: '2px',
+                                                fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px',
                                             }}>{design.category?.name}</div>
                                         </div>
                                         <div style={{
@@ -340,9 +340,9 @@ function KatalogContent() {
                                         <div style={{ display: 'flex', gap: '4px', marginBottom: '14px', flexWrap: 'wrap' }}>
                                             {design.tags.map(tag => (
                                                 <span key={tag.id} style={{
-                                                    background: 'rgba(255,255,255,0.05)',
-                                                    border: '1px solid rgba(255,255,255,0.1)',
-                                                    color: 'rgba(253,250,247,0.5)',
+                                                    background: 'var(--bg-overlay-medium)',
+                                                    border: '1px solid var(--border-light)',
+                                                    color: 'var(--text-muted-light)',
                                                     fontSize: '11px', padding: '3px 10px',
                                                     borderRadius: '100px', fontFamily: 'DM Sans, sans-serif',
                                                 }}>{tag.name}</span>
@@ -355,7 +355,7 @@ function KatalogContent() {
                                             onClick={() => router.push(`/demo/${design.slug}`)}
                                             style={{
                                                 flex: 1,
-                                                background: 'linear-gradient(135deg, #C9956C, #B87355)',
+                                                background: 'var(--rose-gradient-button)',
                                                 color: 'white', border: 'none',
                                                 padding: '11px', borderRadius: '12px',
                                                 fontSize: '12px', cursor: 'pointer',
@@ -365,8 +365,8 @@ function KatalogContent() {
                                             style={{ flex: 1, textDecoration: 'none' }}>
                                             <button style={{
                                                 width: '100%',
-                                                background: 'transparent', color: 'rgba(253,250,247,0.6)',
-                                                border: '1px solid rgba(255,255,255,0.1)',
+                                                background: 'transparent', color: 'var(--text-muted-light)',
+                                                border: '1px solid var(--border-light)',
                                                 padding: '11px', borderRadius: '12px',
                                                 fontSize: '12px', cursor: 'pointer',
                                                 fontFamily: 'DM Sans, sans-serif',
@@ -386,9 +386,9 @@ function KatalogContent() {
                             onClick={() => setPage(p => Math.max(1, p - 1))}
                             disabled={page === 1}
                             style={{
-                                background: 'rgba(255,255,255,0.04)',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                                color: page === 1 ? 'rgba(253,250,247,0.2)' : 'rgba(253,250,247,0.6)',
+                                background: 'var(--bg-overlay-medium)',
+                                border: '1px solid var(--border-medium)',
+                                color: page === 1 ? 'var(--text-muted-lighter)' : 'var(--text-muted-light)',
                                 padding: '8px 20px', borderRadius: '100px',
                                 fontSize: '13px', fontFamily: 'DM Sans, sans-serif',
                                 cursor: page === 1 ? 'not-allowed' : 'pointer',
@@ -396,9 +396,9 @@ function KatalogContent() {
 
                         {Array.from({ length: lastPage }, (_, i) => i + 1).map(p => (
                             <button key={p} onClick={() => setPage(p)} style={{
-                                background: page === p ? '#C9956C' : 'rgba(255,255,255,0.04)',
-                                border: page === p ? '1px solid #C9956C' : '1px solid rgba(255,255,255,0.08)',
-                                color: page === p ? 'white' : 'rgba(253,250,247,0.5)',
+                                background: page === p ? 'var(--accent-light)' : 'var(--bg-overlay-medium)',
+                                border: page === p ? '1px solid var(--accent-light)' : '1px solid var(--border-medium)',
+                                color: page === p ? 'white' : 'var(--text-muted-light)',
                                 width: '40px', height: '40px', borderRadius: '50%',
                                 fontSize: '13px', fontFamily: 'DM Sans, sans-serif',
                                 cursor: 'pointer', transition: 'all 0.2s',
@@ -409,9 +409,9 @@ function KatalogContent() {
                             onClick={() => setPage(p => Math.min(lastPage, p + 1))}
                             disabled={page === lastPage}
                             style={{
-                                background: 'rgba(255,255,255,0.04)',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                                color: page === lastPage ? 'rgba(253,250,247,0.2)' : 'rgba(253,250,247,0.6)',
+                                background: 'var(--bg-overlay-medium)',
+                                border: '1px solid var(--border-medium)',
+                                color: page === lastPage ? 'var(--text-muted-lighter)' : 'var(--text-muted-light)',
                                 padding: '8px 20px', borderRadius: '100px',
                                 fontSize: '13px', fontFamily: 'DM Sans, sans-serif',
                                 cursor: page === lastPage ? 'not-allowed' : 'pointer',
@@ -435,7 +435,7 @@ function KatalogContent() {
                     <div
                         onClick={e => e.stopPropagation()}
                         style={{
-                            background: '#110b07',
+                            background: 'var(--background-secondary)',
                             border: '1px solid rgba(201,149,108,0.2)',
                             borderRadius: '24px', overflow: 'hidden',
                             width: '100%', maxWidth: '900px',
@@ -449,14 +449,14 @@ function KatalogContent() {
                             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                         }}>
                             <div style={{
-                                fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#C9956C',
+                                fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: 'var(--accent-light)',
                             }}>✦ Preview — {selectedDesign.title}</div>
                             <button
                                 onClick={() => setSelectedDesign(null)}
                                 style={{
-                                    background: 'rgba(255,255,255,0.06)',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    color: 'rgba(253,250,247,0.6)',
+                                    background: 'var(--bg-overlay-heavy)',
+                                    border: '1px solid var(--border-light)',
+                                    color: 'var(--text-muted-light)',
                                     width: '32px', height: '32px', borderRadius: '50%',
                                     cursor: 'pointer', fontSize: '14px',
                                     fontFamily: 'DM Sans, sans-serif',
@@ -476,24 +476,24 @@ function KatalogContent() {
                             {/* Sidebar */}
                             <div style={{
                                 width: '260px', minWidth: '220px',
-                                padding: '2rem', borderLeft: '1px solid rgba(201,149,108,0.1)',
+                                padding: '2rem', borderLeft: 'var(--border-light)',
                                 display: 'flex', flexDirection: 'column', gap: '16px',
                             }}>
                                 <div>
                                     <div style={{
                                         fontFamily: 'Cormorant Garamond, serif',
-                                        fontSize: '22px', color: '#FDFAF7', fontWeight: 400,
+                                        fontSize: '22px', color: 'var(--foreground)', fontWeight: 400,
                                     }}>{selectedDesign.title}</div>
                                     <div style={{
                                         fontFamily: 'DM Sans, sans-serif',
-                                        fontSize: '12px', color: 'rgba(253,250,247,0.4)', marginTop: '4px',
+                                        fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px',
                                     }}>{selectedDesign.category?.name}</div>
                                 </div>
 
                                 {selectedDesign.description && (
                                     <p style={{
                                         fontFamily: 'DM Sans, sans-serif',
-                                        fontSize: '13px', color: 'rgba(253,250,247,0.5)',
+                                        fontSize: '13px', color: 'var(--text-muted-light)',
                                         lineHeight: 1.7, fontWeight: 300,
                                     }}>{selectedDesign.description}</p>
                                 )}

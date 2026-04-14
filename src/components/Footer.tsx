@@ -1,25 +1,25 @@
 export default function Footer() {
     return (
         <footer style={{
-            background: '#2A1810',
+            background: 'var(--background-secondary)',
             padding: '2.5rem 2rem',
             textAlign: 'center',
-            borderTop: '1px solid rgba(201,149,108,0.15)',
+            borderTop: '1px solid var(--border-color)',
             marginTop: 'auto',
         }}>
             <div style={{
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: '22px',
-                color: '#F5E6DC',
+                color: 'var(--foreground)',
                 marginBottom: '8px',
-                fontWeight: 300,
+                fontWeight: 400,
             }}>
-                <span style={{ color: '#C9956C' }}>✦</span> UndanganId
+                <span style={{ color: 'var(--accent-light)' }}>✦</span> UndanganId
             </div>
             <p style={{
                 fontFamily: 'DM Sans, sans-serif',
                 fontSize: '12px',
-                color: 'rgba(253,248,245,0.35)',
+                color: 'var(--text-muted)',
                 letterSpacing: '1px',
             }}>
                 Dibuat dengan cinta · untuk hari paling istimewa dalam hidupmu

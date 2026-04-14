@@ -4,22 +4,94 @@
 :root {
   --rose: #C9956C;
   --rose-dark: #B87355;
+  --rose-dark-light: #A0753D;
   --blush: #F5E6DC;
   --blush-dark: #EDD5C5;
+  --blush-light: #FFE8D6;
   --cream: #FDFAF7;
   --mocha: #2A1810;
   --mocha-light: #4A2E22;
+  --mocha-lighter: #1F140A;
   --gold: #C9A96E;
+  --gold-light: #E8C77D;
   --text-soft: #8C6555;
 
-  --background: var(--cream);
-  --foreground: var(--mocha);
+  /* Dark Mode (Default) */
+  --background: #0A0604;
+  --background-gradient: linear-gradient(135deg, #0a0604 0%, #1a0c08 40%, #0f0a06 100%);
+  --foreground: #FDFAF7;
+  --background-secondary: rgba(10, 6, 4, 0.96);
+  --border-color: rgba(201, 149, 108, 0.15);
+  --text-muted: rgba(253, 250, 247, 0.6);
+  --text-muted-light: rgba(253, 250, 247, 0.5);
+  --text-muted-lighter: rgba(253, 250, 247, 0.35);
+  --bg-overlay-light: rgba(255, 255, 255, 0.02);
+  --bg-overlay-medium: rgba(255, 255, 255, 0.04);
+  --bg-overlay-heavy: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-heavy: rgba(255, 255, 255, 0.15);
+}
+
+html[data-theme="light"],
+html.light {
+  --background: #F9F6F3;
+  --background-gradient: linear-gradient(135deg, #F9F6F3 0%, #FCF9F6 40%, #F7F3F0 100%);
+  --foreground: #1F140A;
+  --background-secondary: rgba(255, 255, 255, 0.98);
+  --border-color: rgba(201, 149, 108, 0.25);
+  --text-muted: rgba(42, 24, 16, 0.7);
+  --text-muted-light: rgba(32, 18, 10, 0.6);
+  --text-muted-lighter: rgba(42, 24, 16, 0.5);
+  --bg-overlay-light: rgba(0, 0, 0, 0.02);
+  --bg-overlay-medium: rgba(0, 0, 0, 0.04);
+  --bg-overlay-heavy: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(42, 24, 16, 0.08);
+  --border-medium: rgba(42, 24, 16, 0.12);
+  --border-heavy: rgba(42, 24, 16, 0.18);
+  --accent-light: #A0753D;
+  --accent-lighter: #B8875C;
+  --gold-light: #D4A574;
+  --gold-dark: #8B6F47;
+  
+  /* Rose gradients for light mode */
+  --rose-gradient-button: linear-gradient(135deg, #B8875C, #A0753D);
+  --rose-gradient-text: linear-gradient(90deg, #A0753D, #D4A574, #A0753D);
+  --rose-glow: rgba(160, 117, 61, 0.15);
+}
+
+html[data-theme="dark"],
+html.dark {
+  --background: #0A0604;
+  --background-gradient: linear-gradient(135deg, #0a0604 0%, #1a0c08 40%, #0f0a06 100%);
+  --foreground: #FDFAF7;
+  --background-secondary: rgba(10, 6, 4, 0.96);
+  --border-color: rgba(201, 149, 108, 0.15);
+  --text-muted: rgba(253, 250, 247, 0.6);
+  --text-muted-light: rgba(253, 250, 247, 0.5);
+  --text-muted-lighter: rgba(253, 250, 247, 0.35);
+  --bg-overlay-light: rgba(255, 255, 255, 0.02);
+  --bg-overlay-medium: rgba(255, 255, 255, 0.04);
+  --bg-overlay-heavy: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-heavy: rgba(255, 255, 255, 0.15);
+  --accent-light: #C9956C;
+  --accent-lighter: #E8D5B7;
+  --gold-light: #E8C77D;
+  --gold-dark: #C9A96E;
+  
+  /* Rose gradients for dark mode */
+  --rose-gradient-button: linear-gradient(135deg, #C9956C, #B87355);
+  --rose-gradient-text: linear-gradient(90deg, #C9956C, #E8D5B7, #C9956C);
+  --rose-glow: rgba(201, 149, 108, 0.15);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 body {
@@ -28,6 +100,23 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  theme-color: var(--rose);
+}
+
+/* Light mode text improvements */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6,
+html[data-theme="light"] p,
+html[data-theme="light"] span {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="light"] .hero-title {
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.08) !important;
 }
 
 .font-display {

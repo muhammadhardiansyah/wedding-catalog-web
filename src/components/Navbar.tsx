@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -10,8 +11,8 @@ export default function Navbar() {
 
     return (
         <nav style={{
-            background: 'rgba(10,6,4,0.96)',
-            borderBottom: '1px solid rgba(201,149,108,0.15)',
+            background: 'var(--background-secondary)',
+            borderBottom: '1px solid var(--border-color)',
             position: 'sticky', top: 0, zIndex: 50,
             backdropFilter: 'blur(12px)',
         }}>
@@ -32,12 +33,14 @@ export default function Navbar() {
                         color: 'white', fontSize: '14px',
                         fontFamily: 'Cormorant Garamond, serif',
                         boxShadow: '0 0 20px rgba(201,149,108,0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
                     }}>✦</div>
                     <span style={{
                         fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '20px', color: '#FDFAF7', letterSpacing: '0.5px',
+                        fontSize: '20px', color: 'var(--foreground)', letterSpacing: '0.5px',
+                        fontWeight: 400,
                     }}>
-                        Undangan<span style={{ color: '#C9956C' }}>Id</span>
+                        Undangan<span style={{ color: 'var(--accent-light)' }}>Id</span>
                     </span>
                 </Link>
 
@@ -50,12 +53,12 @@ export default function Navbar() {
                             { label: 'Kategori', href: '/kategori' },
                         ].map(item => (
                             <Link key={item.href} href={item.href} style={{
-                                textDecoration: 'none', color: 'rgba(253,250,247,0.6)',
+                                textDecoration: 'none', color: 'var(--text-muted)',
                                 fontFamily: 'DM Sans, sans-serif', fontWeight: 300,
                                 transition: 'color 0.2s',
                             }}
                                 onMouseEnter={e => e.currentTarget.style.color = '#C9956C'}
-                                onMouseLeave={e => e.currentTarget.style.color = 'rgba(253,250,247,0.6)'}
+                                onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
                             >{item.label}</Link>
                         ))}
                     </div>
@@ -63,6 +66,7 @@ export default function Navbar() {
 
                 {/* Right Side */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <ThemeToggle />
                     {!isMobile && (
                         <Link href="/katalog" style={{ textDecoration: 'none' }}>
                             <button style={{
@@ -81,9 +85,9 @@ export default function Navbar() {
                         <button
                             onClick={() => setMenuOpen(!menuOpen)}
                             style={{
-                                background: 'rgba(255,255,255,0.04)',
-                                border: '1px solid rgba(255,255,255,0.08)',
-                                color: '#FDFAF7', width: '40px', height: '40px',
+                                background: 'var(--bg-overlay-medium)',
+                                border: '1px solid var(--border-medium)',
+                                color: 'var(--foreground)', width: '40px', height: '40px',
                                 borderRadius: '10px', cursor: 'pointer',
                                 fontSize: '16px', display: 'flex',
                                 alignItems: 'center', justifyContent: 'center',
@@ -97,8 +101,8 @@ export default function Navbar() {
             {/* Mobile Menu */}
             {(isMobile || isTablet) && menuOpen && (
                 <div style={{
-                    background: 'rgba(10,6,4,0.98)',
-                    borderTop: '1px solid rgba(201,149,108,0.1)',
+                    background: 'var(--background-secondary)',
+                    borderTop: '1px solid var(--border-color)',
                     padding: '1rem 1.5rem 1.5rem',
                 }}>
                     {[
@@ -112,7 +116,7 @@ export default function Navbar() {
                                 textDecoration: 'none', display: 'block',
                                 padding: '14px 0',
                                 borderBottom: '1px solid rgba(255,255,255,0.05)',
-                                color: 'rgba(253,250,247,0.7)',
+                                color: 'var(--text-muted)',
                                 fontFamily: 'DM Sans, sans-serif', fontSize: '15px',
                             }}
                         >{item.label}</Link>

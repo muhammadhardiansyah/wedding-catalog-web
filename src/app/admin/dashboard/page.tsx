@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import api from '@/lib/api';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { statCardLabels } from '@/lib/constants';
 
 interface Stats {
     total_designs: number;
@@ -48,12 +49,10 @@ export default function DashboardPage() {
         fetchData();
     }, []);
 
-    const statCards = [
-        { label: 'Total Desain', value: stats.total_designs, icon: '✦', color: '#C9956C' },
-        { label: 'Kategori', value: stats.total_categories, icon: '❋', color: '#a78bfa' },
-        { label: 'Total Views', value: stats.total_views, icon: '◈', color: '#34d399' },
-        { label: 'Featured', value: stats.featured_designs, icon: '♡', color: '#f472b6' },
-    ];
+    const statCards = statCardLabels(stats).map((card, i) => ({
+        ...card,
+        value: Object.values(stats)[i],
+    }));
 
     return (
         <div style={{ animation: 'fadeUp 0.5s ease both' }}>

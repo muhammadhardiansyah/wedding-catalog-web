@@ -6,7 +6,7 @@ import api from '@/lib/api';
 import { Design } from '@/types';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useRouter } from 'next/navigation';
-const marqueeItems = ['Rustic ✦', 'Modern ✦', 'Islami ✦', 'Floral ✦', 'Minimalist ✦', 'Elegant ✦', 'Romantic ✦', 'Boho ✦'];
+import { whyUsFeatures } from '@/lib/constants';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('Semua');
@@ -15,6 +15,7 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [featuredDesigns, setFeaturedDesigns] = useState<Design[]>([]);
   const [categories, setCategories] = useState<string[]>(['Semua']);
+  const [totalDesigns, setTotalDesigns] = useState(0);
   const [loading, setLoading] = useState(true);
   const heroRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useWindowSize();
@@ -35,6 +36,7 @@ export default function Home() {
           api.get('/categories'),
         ]);
         setFeaturedDesigns(designsRes.data.data);
+        setTotalDesigns(designsRes.data.total);
         setCategories(['Semua', ...categoriesRes.data.map((c: any) => c.name)]);
       } catch (error) {
         console.error(error);
@@ -44,14 +46,14 @@ export default function Home() {
     };
 
     fetchData();
-  }, [activeCategory]); // <--- Ensure this is ALWAYS just [activeCategory]
+  }, [activeCategory]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
   };
 
   return (
-    <div onMouseMove={handleMouseMove} style={{ background: '#0a0604', minHeight: '100vh' }}>
+    <div onMouseMove={handleMouseMove} style={{ background: 'var(--background)', minHeight: '100vh' }}>
 
       {/* CURSOR GLOW */}
       <div style={{
@@ -86,7 +88,7 @@ export default function Home() {
       {/* HERO */}
       <section ref={heroRef} style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0a0604 0%, #1a0c08 40%, #0f0a06 100%)',
+        background: 'var(--background-gradient)',
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center',
         textAlign: 'center', padding: '6rem 2rem 4rem',
@@ -123,7 +125,7 @@ export default function Home() {
             border: '1px solid rgba(201,149,108,0.3)',
             borderRadius: '100px', padding: '8px 16px',
             fontFamily: 'DM Sans, sans-serif', fontSize: '12px',
-            color: '#C9956C', backdropFilter: 'blur(8px)',
+            color: 'var(--accent-light)', backdropFilter: 'blur(8px)',
           }}>✦ Islami</div>
         )}
 
@@ -165,7 +167,7 @@ export default function Home() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <div className="shimmer-text" style={{
             display: 'inline-block',
-            background: 'linear-gradient(90deg, #C9956C, #E8D5B7, #C9956C)',
+            background: 'var(--rose-gradient-text)',
             backgroundSize: '200%',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -177,12 +179,12 @@ export default function Home() {
           <h1 className="hero-title" style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: isMobile ? '42px' : isTablet ? '56px' : 'clamp(42px, 8vw, 72px)',
-            color: '#FDFAF7', lineHeight: 1.1,
+            color: 'var(--foreground)', lineHeight: 1.1,
             fontWeight: 300, marginBottom: '1rem', letterSpacing: '-1px',
           }}>
             Undanganmu,<br />
             <span style={{
-              background: 'linear-gradient(135deg, #C9956C, #E8D5B7)',
+              background: 'var(--rose-gradient-text)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontStyle: 'italic',
@@ -191,7 +193,7 @@ export default function Home() {
 
           <p className="hero-sub" style={{
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: '16px', color: 'rgba(253,250,247,0.5)',
+            fontSize: '16px', color: 'var(--text-muted-light)',
             lineHeight: 1.8, fontWeight: 300,
             maxWidth: '480px', margin: '0 auto 2.5rem',
           }}>
@@ -202,20 +204,20 @@ export default function Home() {
           <div className="hero-cta" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/katalog" style={{ textDecoration: 'none' }}>
               <button style={{
-                background: 'linear-gradient(135deg, #C9956C, #B87355)',
+                background: 'var(--rose-gradient-button)',
                 color: 'white', border: 'none',
                 padding: '15px 36px', borderRadius: '100px',
                 fontSize: '14px', fontFamily: 'DM Sans, sans-serif',
                 fontWeight: 500, cursor: 'pointer',
-                boxShadow: '0 0 40px rgba(201,149,108,0.3)',
+                boxShadow: '0 0 40px var(--rose-glow)',
                 transition: 'all 0.3s',
               }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = '0 0 60px rgba(201,149,108,0.5)';
+                  e.currentTarget.style.boxShadow = '0 0 60px var(--rose-glow)';
                   e.currentTarget.style.transform = 'scale(1.05)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = '0 0 40px rgba(201,149,108,0.3)';
+                  e.currentTarget.style.boxShadow = '0 0 40px var(--rose-glow)';
                   e.currentTarget.style.transform = 'scale(1)';
                 }}
               >Jelajahi Sekarang ✦</button>
@@ -223,8 +225,8 @@ export default function Home() {
             <Link href="/kategori" style={{ textDecoration: 'none' }}>
               <button style={{
                 background: 'transparent',
-                color: 'rgba(253,250,247,0.6)',
-                border: '1px solid rgba(255,255,255,0.15)',
+                color: 'var(--text-muted)',
+                border: '1px solid var(--border-medium)',
                 padding: '15px 36px', borderRadius: '100px',
                 fontSize: '14px', fontFamily: 'DM Sans, sans-serif',
                 fontWeight: 300, cursor: 'pointer',
@@ -232,11 +234,11 @@ export default function Home() {
               }}
                 onMouseEnter={e => {
                   e.currentTarget.style.borderColor = 'rgba(201,149,108,0.5)';
-                  e.currentTarget.style.color = '#C9956C';
+                  e.currentTarget.style.color = 'var(--accent-light)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)';
-                  e.currentTarget.style.color = 'rgba(253,250,247,0.6)';
+                  e.currentTarget.style.borderColor = 'var(--border-medium)';
+                  e.currentTarget.style.color = 'var(--text-muted)';
                 }}
               >Lihat Kategori →</button>
             </Link>
@@ -246,29 +248,29 @@ export default function Home() {
           <div className="hero-stats" style={{
             display: 'flex', justifyContent: 'center',
             marginTop: '4rem',
-            border: '1px solid rgba(201,149,108,0.15)',
+            border: '1px solid var(--border-color)',
             borderRadius: '20px', overflow: 'hidden',
-            background: 'rgba(255,255,255,0.02)',
+            background: 'var(--bg-overlay-light)',
             backdropFilter: 'blur(8px)',
             maxWidth: isMobile ? '100%' : '400px',
             margin: '4rem auto 0',
           }}>
             {[
-              { val: '200+', label: 'Desain' },
+              { val: String(totalDesigns) + '+', label: 'Desain' },
               { val: String(categories.length - 1), label: 'Kategori' },
               { val: '∞', label: 'Inspirasi' },
             ].map((s, i) => (
               <div key={i} style={{
                 flex: 1, padding: '1.2rem 1rem', textAlign: 'center',
-                borderRight: i < 2 ? '1px solid rgba(201,149,108,0.15)' : 'none',
+                borderRight: i < 2 ? '1px solid var(--border-color)' : 'none',
               }}>
                 <div style={{
                   fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: '30px', color: '#C9956C', fontWeight: 400,
+                  fontSize: '30px', color: 'var(--accent-light)', fontWeight: 400,
                 }}>{s.val}</div>
                 <div style={{
                   fontFamily: 'DM Sans, sans-serif',
-                  fontSize: '10px', color: 'rgba(253,250,247,0.35)',
+                  fontSize: '10px', color: 'var(--text-muted-lighter)',
                   letterSpacing: '2px', textTransform: 'uppercase', marginTop: '2px',
                 }}>{s.label}</div>
               </div>
@@ -283,25 +285,25 @@ export default function Home() {
           alignItems: 'center', gap: '6px',
           animation: 'float 2s ease-in-out infinite',
         }}>
-          <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '10px', color: 'rgba(201,149,108,0.5)', letterSpacing: '2px' }}>SCROLL</div>
+          <div style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '10px', color: 'var(--text-muted-lighter)', letterSpacing: '2px' }}>SCROLL</div>
           <div style={{ width: '1px', height: '40px', background: 'linear-gradient(to bottom, rgba(201,149,108,0.5), transparent)' }} />
         </div>
       </section>
 
       {/* MARQUEE */}
       <div style={{
-        background: '#C9956C', padding: '14px 0',
+        background: 'var(--accent-light)', padding: '14px 0',
         overflow: 'hidden', whiteSpace: 'nowrap',
         borderTop: '1px solid rgba(255,255,255,0.1)',
         borderBottom: '1px solid rgba(255,255,255,0.1)',
       }}>
         <div style={{ display: 'inline-block', animation: 'marquee 20s linear infinite' }}>
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+          {[...categories.filter(c => c !== 'Semua'), ...categories.filter(c => c !== 'Semua')].map((item, i) => (
             <span key={i} style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontSize: '16px', color: '#2A1810',
               marginRight: '48px', fontStyle: 'italic',
-            }}>{item}</span>
+            }}>{item} ✦</span>
           ))}
         </div>
       </div>
@@ -312,18 +314,18 @@ export default function Home() {
           <div>
             <div style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: '11px',
-              letterSpacing: '4px', color: '#C9956C',
+              letterSpacing: '4px', color: 'var(--accent-light)',
               textTransform: 'uppercase', marginBottom: '8px',
             }}>✦ Pilihan Terbaik</div>
             <h2 style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontSize: '40px', color: '#FDFAF7', fontWeight: 300,
-            }}>Desain <em>Terpopuler</em></h2>
+              fontSize: '40px', color: 'var(--foreground)', fontWeight: 300,
+            }}>Desain <em style={{ color: 'var(--accent-light)' }}>Terpopuler</em></h2>
           </div>
           <Link href="/katalog" style={{ textDecoration: 'none' }}>
             <span style={{
               fontFamily: 'DM Sans, sans-serif', fontSize: '13px',
-              color: '#C9956C', border: '1px solid rgba(201,149,108,0.3)',
+              color: 'var(--accent-light)', border: '1px solid var(--border-color)',
               padding: '8px 20px', borderRadius: '100px', cursor: 'pointer',
             }}>Lihat semua →</span>
           </Link>
@@ -333,9 +335,9 @@ export default function Home() {
         <div style={{ display: 'flex', gap: '8px', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
           {categories.map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)} style={{
-              background: activeCategory === cat ? '#C9956C' : 'rgba(255,255,255,0.04)',
-              color: activeCategory === cat ? 'white' : 'rgba(253,250,247,0.5)',
-              border: activeCategory === cat ? '1px solid #C9956C' : '1px solid rgba(255,255,255,0.1)',
+              background: activeCategory === cat ? 'var(--accent-light)' : 'var(--bg-overlay-medium)',
+              color: activeCategory === cat ? 'white' : 'var(--text-muted)',
+              border: activeCategory === cat ? '1px solid var(--accent-light)' : '1px solid var(--border-medium)',
               padding: '8px 20px', borderRadius: '100px',
               fontSize: '12px', fontFamily: 'DM Sans, sans-serif',
               cursor: 'pointer', transition: 'all 0.25s',
@@ -353,14 +355,14 @@ export default function Home() {
           }}>
             {[1, 2, 3, 4].map(i => (
               <div key={i} className="skeleton" style={{
-                background: 'rgba(255,255,255,0.04)',
+                background: 'var(--bg-overlay-medium)',
                 borderRadius: '20px', overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid var(--border-light)',
               }}>
-                <div style={{ height: '200px', background: 'rgba(255,255,255,0.04)' }} />
+                <div style={{ height: '200px', background: 'var(--bg-overlay-medium)' }} />
                 <div style={{ padding: '1.2rem' }}>
-                  <div style={{ height: '18px', background: 'rgba(255,255,255,0.06)', borderRadius: '8px', marginBottom: '8px', width: '70%' }} />
-                  <div style={{ height: '12px', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', width: '40%' }} />
+                  <div style={{ height: '18px', background: 'var(--border-light)', borderRadius: '8px', marginBottom: '8px', width: '70%' }} />
+                  <div style={{ height: '12px', background: 'var(--bg-overlay-medium)', borderRadius: '8px', width: '40%' }} />
                 </div>
               </div>
             ))}
@@ -378,7 +380,7 @@ export default function Home() {
               <div style={{
                 gridColumn: '1/-1', textAlign: 'center', padding: '3rem',
                 fontFamily: 'DM Sans, sans-serif', fontSize: '14px',
-                color: 'rgba(253,250,247,0.3)',
+                color: 'var(--text-muted-lighter)',
               }}>
                 Belum ada desain featured. Tandai desain sebagai featured di admin panel.
               </div>
@@ -387,11 +389,11 @@ export default function Home() {
                 onMouseEnter={() => setHoveredCard(i)}
                 onMouseLeave={() => setHoveredCard(null)}
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
+                  background: 'var(--bg-overlay-light)',
                   borderRadius: '20px', overflow: 'hidden',
                   border: hoveredCard === i
                     ? '1px solid rgba(201,149,108,0.6)'
-                    : i === 0 ? '1px solid rgba(201,149,108,0.3)' : '1px solid rgba(255,255,255,0.06)',
+                    : i === 0 ? '1px solid rgba(201,149,108,0.3)' : '1px solid var(--border-light)',
                   transition: 'all 0.3s',
                   transform: hoveredCard === i ? 'translateY(-8px)' : 'translateY(0)',
                   cursor: 'pointer',
@@ -418,7 +420,7 @@ export default function Home() {
                     }}>
                       <div style={{ textAlign: 'center', fontFamily: 'Cormorant Garamond, serif' }}>
                         <div style={{ fontSize: '11px', letterSpacing: '4px', color: '#C9956C', marginBottom: '8px' }}>THE WEDDING OF</div>
-                        <div style={{ fontSize: '20px', color: '#FDFAF7', fontStyle: 'italic' }}>{design.title}</div>
+                        <div style={{ fontSize: '20px', color: 'var(--foreground)', fontStyle: 'italic' }}>{design.title}</div>
                         <div style={{ width: '36px', height: '1px', background: '#C9956C', margin: '10px auto' }} />
                       </div>
                     </div>
@@ -431,7 +433,7 @@ export default function Home() {
                       border: '1px solid rgba(201,149,108,0.4)',
                       borderRadius: '100px', padding: '4px 12px',
                       fontFamily: 'DM Sans, sans-serif', fontSize: '10px',
-                      color: '#C9956C', letterSpacing: '2px',
+                      color: 'var(--accent-light)', letterSpacing: '2px',
                       textTransform: 'uppercase', backdropFilter: 'blur(8px)',
                     }}>Featured</div>
                   )}
@@ -454,12 +456,12 @@ export default function Home() {
                     <div style={{ flex: 1, minWidth: 0, marginRight: '8px' }}>
                       <div style={{
                         fontFamily: 'Cormorant Garamond, serif',
-                        fontSize: '18px', color: '#FDFAF7', fontWeight: 500,
+                        fontSize: '18px', color: 'var(--foreground)', fontWeight: 500,
                         overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                       }}>{design.title}</div>
                       <div style={{
                         fontFamily: 'DM Sans, sans-serif',
-                        fontSize: '12px', color: 'rgba(253,250,247,0.4)', marginTop: '2px',
+                        fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px',
                       }}>{design.category?.name}</div>
                     </div>
                     <div style={{
@@ -478,11 +480,12 @@ export default function Home() {
                     <div style={{ display: 'flex', gap: '4px', marginBottom: '14px', flexWrap: 'wrap' }}>
                       {design.tags.map(tag => (
                         <span key={tag.id} style={{
-                          background: 'rgba(255,255,255,0.05)',
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          color: 'rgba(253,250,247,0.6)',
-                          fontSize: '11px', padding: '3px 10px',
-                          borderRadius: '100px', fontFamily: 'DM Sans, sans-serif',
+                          background: 'var(--bg-overlay-medium)',
+                          border: '1px solid var(--border-medium)',
+                          color: 'var(--text-muted)',
+                          borderRadius: '4px',
+                          padding: '2px 8px',
+                          fontSize: '11px',
                         }}>{tag.name}</span>
                       ))}
                     </div>
@@ -493,7 +496,7 @@ export default function Home() {
                       onClick={() => router.push(`/demo/${design.slug}`)}
                       style={{
                         flex: 1,
-                        background: 'linear-gradient(135deg, #C9956C, #B87355)',
+                        background: 'var(--rose-gradient-button)',
                         color: 'white', border: 'none',
                         padding: '11px', borderRadius: '12px',
                         fontSize: '12px', cursor: 'pointer',
@@ -503,8 +506,8 @@ export default function Home() {
                       onClick={() => router.push('/katalog')}
                       style={{
                         flex: 1,
-                        background: 'transparent', color: 'rgba(253,250,247,0.6)',
-                        border: '1px solid rgba(255,255,255,0.1)',
+                        background: 'transparent', color: 'var(--text-muted)',
+                        border: '1px solid var(--border-medium)',
                         padding: '11px', borderRadius: '12px',
                         fontSize: '12px', cursor: 'pointer',
                         fontFamily: 'DM Sans, sans-serif',
@@ -520,15 +523,15 @@ export default function Home() {
         <div style={{ textAlign: 'center', marginTop: '3rem' }}>
           <Link href="/katalog" style={{ textDecoration: 'none' }}>
             <button style={{
-              background: 'transparent', color: '#C9956C',
-              border: '1px solid rgba(201,149,108,0.4)',
+              background: 'transparent', color: 'var(--accent-light)',
+              border: '1px solid var(--accent-light)',
               padding: '14px 40px', borderRadius: '100px',
               fontSize: '14px', fontFamily: 'DM Sans, sans-serif',
               fontWeight: 500, cursor: 'pointer', transition: 'all 0.3s',
             }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(201,149,108,0.1)';
-                e.currentTarget.style.boxShadow = '0 0 30px rgba(201,149,108,0.2)';
+                e.currentTarget.style.background = 'var(--rose-glow)';
+                e.currentTarget.style.boxShadow = '0 0 30px var(--rose-glow)';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = 'transparent';
@@ -542,32 +545,27 @@ export default function Home() {
       {/* WHY US */}
       <section style={{
         padding: '5rem 2rem',
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        background: 'rgba(255,255,255,0.01)',
+        borderTop: '1px solid var(--border-light)',
+        background: 'var(--bg-overlay-light)',
       }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
             fontFamily: 'DM Sans, sans-serif', fontSize: '11px',
-            letterSpacing: '4px', color: '#C9956C',
+            letterSpacing: '4px', color: 'var(--accent-light)',
             textTransform: 'uppercase', marginBottom: '8px',
           }}>Kenapa UndanganId?</div>
           <h2 style={{
             fontFamily: 'Cormorant Garamond, serif',
-            fontSize: '40px', color: '#FDFAF7',
+            fontSize: '40px', color: 'var(--foreground)',
             fontWeight: 300, marginBottom: '3.5rem',
-          }}>Yang bikin kita <em style={{ color: '#C9956C' }}>beda.</em></h2>
+          }}>Yang bikin kita <em style={{ color: 'var(--accent-light)' }}>beda.</em></h2>
 
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: '20px',
           }}>
-            {[
-              { icon: '✦', title: 'Desain Eksklusif', desc: 'Template premium dari desainer top, khusus untuk momen pernikahanmu.', color: '#C9956C' },
-              { icon: '♡', title: 'Mudah Edit', desc: 'Langsung edit di Canva. Ganti nama, tanggal, foto. Semudah itu.', color: '#f472b6' },
-              { icon: '◈', title: 'Preview Dulu', desc: 'Lihat tampilan utuh sebelum pilih. No surprises.', color: '#a78bfa' },
-              { icon: '❋', title: 'Update Terus', desc: 'Desain baru setiap minggu. Always fresh, always on trend.', color: '#52b788' },
-            ].map((item, i) => (
+            {whyUsFeatures.map((item, i) => (
               <div key={i} style={{
                 background: 'rgba(255,255,255,0.02)',
                 border: '1px solid rgba(255,255,255,0.06)',
@@ -597,12 +595,12 @@ export default function Home() {
                 }}>{item.icon}</div>
                 <div style={{
                   fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: '20px', color: '#FDFAF7',
+                  fontSize: '20px', color: 'var(--foreground)',
                   fontWeight: 500, marginBottom: '8px',
                 }}>{item.title}</div>
                 <p style={{
                   fontFamily: 'DM Sans, sans-serif',
-                  fontSize: '13px', color: 'rgba(253,250,247,0.4)',
+                  fontSize: '13px', color: 'var(--text-muted)',
                   lineHeight: 1.7, fontWeight: 300,
                 }}>{item.desc}</p>
               </div>
@@ -624,15 +622,15 @@ export default function Home() {
           <h2 style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: 'clamp(32px, 6vw, 56px)',
-            color: '#FDFAF7', fontWeight: 300,
+            color: 'var(--foreground)', fontWeight: 300,
             lineHeight: 1.2, marginBottom: '1.5rem',
           }}>
             Siap buat undangan<br />
-            <em style={{ color: '#C9956C' }}>yang nggak biasa?</em>
+            <em style={{ color: 'var(--accent-light)' }}>yang nggak biasa?</em>
           </h2>
           <p style={{
             fontFamily: 'DM Sans, sans-serif',
-            fontSize: '15px', color: 'rgba(253,250,247,0.4)',
+            fontSize: '15px', color: 'var(--text-muted)',
             marginBottom: '2.5rem', fontWeight: 300,
           }}>Gratis. Tanpa daftar. Langsung pilih.</p>
           <Link href="/katalog" style={{ textDecoration: 'none' }}>
