@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const apiBase = (
+    process.env.NEXT_PUBLIC_API_URL || "https://wedding-catalog-api.vercel.app"
+).replace(/\/+$/, "");
+
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
+    baseURL: `${apiBase}/api`,
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
